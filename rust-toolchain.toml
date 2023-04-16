@@ -1,0 +1,3 @@
+[toolchain]
+channel = "nightly-2023-01-03" # The nightly release to use, you can update this to the most recent one if you want
+profile = "minimal"

@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter.ttf");
+}
+
+@font-face {
+    font-family: "Comfortaa";
+    src: url("../public/fonts/comf.woff2");
+}
+
+@font-face {
+    font-family: "Inconsolata";
+    src: url("../public/fonts/inconsolata.ttf");
+}

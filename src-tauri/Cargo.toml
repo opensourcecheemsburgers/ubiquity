@@ -1,0 +1,44 @@
+[package]
+name = "Ubiquity"
+license = "GPL"
+repository = ""
+default-run = "Ubiquity"
+edition = "2021"
+version = "0.0.1"
+
+[build-dependencies]
+tauri-build = { git = "https://github.com/tauri-apps/tauri", rev = "d20a728", features = [] }
+
+[dependencies.tauri]
+version = "1.2.4"
+features = [
+  "dialog-all",
+  "fs-all",
+  "http-all",
+  "linux-protocol-headers",
+  "path-all",
+  "protocol-asset",
+  "shell-open",
+]
+
+[dependencies]
+serde = { workspace = true }
+log = { workspace = true }
+walkdir = { workspace = true }
+thiserror = { workspace = true }
+dirs = { workspace = true }
+toml = { workspace = true }
+figment = { workspace = true }
+config = { workspace = true }
+error = { workspace = true }
+
+window-vibrancy = "0.3.2"
+window-shadows = "0.2.1"
+
+[features]
+# by default Tauri runs in production mode
+# when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL
+default = ["custom-protocol"]
+# this feature is used for production builds where `devPath` points to the filesystem
+# DO NOT remove this
+custom-protocol = ["tauri/custom-protocol"]

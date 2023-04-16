@@ -1,0 +1,102 @@
+/**
+    This `strings.ron` file contains all of the strings that Ubiquity uses.
+
+    For translators:
+    
+    1.  Copy the whole `en` block and paste it underneath the existing one.
+
+    2.  Change the name from `en` to language code of the language you are 
+        translating to. For example, `en` -> `de` for German translation, 
+        `en` -> `fi` for Finnish translation. You can find a list of the
+        codes here: https://www.science.co.il/language/Locale-codes.php
+
+    3.  Translate the right-hand side of the key-value pair. Let's use the
+        first key-value pair as an example. It has the key `brief_welcome_msg`
+        and a value of `"An open-source music player for desktop and Mobile."`
+        Translate the value not the key. For silly geese, just translate 
+        the one on the right hat is located inside of the quotation marks.
+
+    Notes:
+
+    -   If a key's name indicates that it is used for a button e.g. 
+        `select_lib_btn`, keep the translation short and sweet. Don't
+        put the entire Irish Proclamation of Independence inside the value.
+
+    -   You can translate the names of Ubiquity's different themes. 
+        However, it is not required.
+**/
+
+Strings(
+    en: {
+        pages: {
+            welcome: (
+                welcome_title: "Ubiquity",
+                brief_welcome_msg: "An open-source music player for desktop and mobile.",
+                select_lib_btn: "Select Library"
+            ),
+            home: (),
+            settings: (
+                theme_header_title: "Theme",
+                window_header_title: "Window",
+                player_header_title: "Player"
+            ),
+            about: (
+                brief_description: "An open-source, cross-platform music player made with Tauri.",
+                ubiquity_composition_description: "Ubiquity is written in Rust and its frontend is built with Yew and DaisyUI.",
+                links_header: "Links",
+            )
+        },
+        playlist: {
+            create: "Create Playlist",
+            add: "Add Playlist"
+        },
+
+        themes: {
+            light: "light",
+            dark: "dark",
+            cupcake: "cupcake",
+            bumblebee: "bumblebee",
+            emerald: "emerald",
+            corporate: "corporate",
+            synthwave: "synthwave",
+            retro: "retro",
+            cyberpunk: "cyberpunk",
+            valentine: "valentine",
+            halloween: "halloween",
+            garden: "garden",
+            forest: "forest",
+            aqua: "aqua",
+            lofi: "lofi",
+            pastel: "pastel",
+            fantasy: "fantasy",
+            wireframe: "wireframe",
+            black: "black",
+            luxury: "luxury",
+            dracula: "dracula",
+            cmyk: "cmyk",
+            autumn: "autumn",
+            business: "business",
+            acid: "acid",
+            lemonade: "lemonade",
+            night: "night",
+            coffee: "coffee",
+            winter: "winter"
+        },
+        errors: {
+            library: (
+                library_deserialisation: "Failed to deserialise library.",
+                library_fetch: "Failed to fetch your library."
+            ),
+            player: (
+                play_song: "Failed to play song."
+            ),
+            playlist: (
+                create: "Failed to create playlist.",
+                add: "Failed to add song to playlist.",
+                remove: "Failed to remove song from playlist",
+                save: "Failed to save playlist.",
+                delete: "Failed to delete playlist.",
+            )
+        }
+    }
+)

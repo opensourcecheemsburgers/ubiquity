@@ -1,0 +1,16 @@
+
+/target/
+*.iml
+/.idea/
+/.vscode/
+/frontend/.idea/
+/frontend/target/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/css/output.css
+/frontend/package-lock.json
+/frontend/Cargo.lock
+src-tauri/target/
+src-tauri/Cargo.lock
+src-tauri/.idea/
+src-tauri/icons
