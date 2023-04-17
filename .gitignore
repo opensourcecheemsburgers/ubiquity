@@ -8,6 +8,7 @@ Cargo.lock
 /frontend/target/
 /frontend/node_modules/
 /frontend/dist/
+/frontend/img/lottie.js
 /frontend/css/output.css
 /frontend/package-lock.json
 /frontend/Cargo.lock
