@@ -1,6 +1,7 @@
 
 /target/
 *.iml
+Cargo.lock
 /.idea/
 /.vscode/
 /frontend/.idea/
