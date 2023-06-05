@@ -10,6 +10,8 @@ use yew::prelude::*;
 use gloo::storage::LocalStorage;
 use gloo::storage::Storage;
 
+pub const MD_KEY: AttrValue = AttrValue::Static("md_key");
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Markdown {
     pub text: AttrValue,
@@ -26,12 +28,12 @@ impl Markdown {
     }
 
     fn load_from_storage() -> Option<Markdown> {
-        let load_result: Result<String, StorageError> = LocalStorage::get(DOCS_KEY);
+        let load_result: Result<String, StorageError> = LocalStorage::get(MD_KEY);
         
         match load_result {
             Ok(item) => {
                 let text = AttrValue::from(item);
-                Some(Markdown::from(text, DOCS_KEY))
+                Some(Markdown::from(text, MD_KEY))
             }, 
             Err(err) => {
                 log!("Err: {}", err.to_string());
@@ -54,7 +56,7 @@ impl MarkdownContext {
     }
 
     pub fn update_markdown(&self, text: AttrValue) -> Result<(), UbiquityError> {
-        let markdown = Markdown::from(text.clone(), DOCS_KEY);
+        let markdown = Markdown::from(text.clone(), MD_KEY);
         self.inner.set(markdown);
         self.save_to_browser_storage(text)?;
         Ok(())
@@ -91,7 +93,7 @@ impl MarkdownContext {
             
             let read_file: String = tauri_sys::tauri::invoke("read_file", &MarkdownPath {path}).await.unwrap();
             let text: AttrValue = AttrValue::from(read_file);
-            let key: AttrValue = AttrValue::from("read_file_md");
+            let key: AttrValue = MD_KEY;
             ctx_clone.add_markdown(Markdown::from(text, key));
         });
         Ok(())

@@ -7,8 +7,8 @@
         "withGlobalTauri": true
     },
     "package": {
-        "productName": "ubiquity",
-        "version": "0.0.1"
+        "productName": "Ubiquity",
+        "version": "0.1.0"
     },
     "tauri": {
         "allowlist": {
@@ -85,7 +85,7 @@
             }
         },
         "security": {
-            "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'unsafe-eval' 'unsafe-inline' 'self'; script-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'unsafe-eval' 'unsafe-inline' 'self'"
+            "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'self'; script-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'self'"
         },
         "updater": {
             "active": false
