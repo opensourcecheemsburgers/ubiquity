@@ -14,9 +14,11 @@ panic = "abort"
 codegen-units = 1
 lto = true
 opt-level = "z"
-strip = true
+# strip = true
 
 [workspace.dependencies]
+ron = "0.8"
+
 serde = { version = "1.0.154", features = ["derive"] }
 log = { version = "0.4", features = ["release_max_level_info"] }
 walkdir = "2.3.2"
@@ -25,10 +27,12 @@ dirs = "5.0.0"
 toml = "0.7.2"
 figment = { version = "0.10.8", features = ["toml"] }
 yew = { version = "0.20.0", features = ["csr"] }
-web-sys = "0.3.35"
+gloo = "0.8"
+web-sys = { version = "0.3.35", features=["Navigator", "HtmlButtonElement", "HtmlDivElement", "Event", "EventTarget", "MouseEvent", "InputEvent"]}
 wasm-bindgen = "0.2.84"
 getrandom = { version = "0.2.8", features = ["js"] }
 markdown = "1.0.0-alpha.7"
-
+urlencoding = "2.1.2"
+rfd = "0.11.3"
 config = { path = "./ubi-crates/config" }
 error = { path = "./ubi-crates/error" }

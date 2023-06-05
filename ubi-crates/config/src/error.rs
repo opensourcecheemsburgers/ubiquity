@@ -2,33 +2,19 @@ use std::io;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub enum ConfigError {
-    #[error("Cannot get the config folder for the current OS.")]
-    OsConfigFolderError,
+pub enum ConfigError {    
+    #[error(transparent)]
+    IoError(#[from] io::Error),
 
-    #[error("Cannot read config file.")]
-    ReadError {
-        source: io::Error, 
-    },
+    #[error("Error serialising string to RON.")]
+    StringToRonError(#[from] toml::ser::Error),
 
-    #[error("Cannot save config file.")]
-    SaveError {
-        source: io::Error, 
-    },
+    // #[error("Error deserialising RON to string.")]
+    // RonToStringError(#[from] ron::de::Error),
 
-    #[error("Cannot create config folder.")]
-    CreateFolderError,
-    
-    #[error("Cannot create config file.")]
-    CreateFileError,
+    #[error("Error deserialising RON to string.")]
+    RonToStringError(#[from] ron::de::SpannedError),
 
-    #[error("Error serialising TOML to string.")]
-    TomlSerError {
-        source: toml::ser::Error
-    },
-
-    #[error("Error deserialising string to TOML.")]
-    TomlDeserError {
-        source: figment::Error
-    }
+    #[error("An error occured with RON.")]
+    RonError(#[from] ron::Error)
 }

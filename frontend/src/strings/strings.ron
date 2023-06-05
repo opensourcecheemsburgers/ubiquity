@@ -1,0 +1,41 @@
+LocaleStrings( // class name is optional
+    en: { // this is a map
+        app_name: "Ubiquity"
+        
+        pages: {
+            welcome: {
+                start_btn: "Get Started",
+                app_description: "A markdown editor."
+            },
+            home: {
+
+            },
+            about: {
+                about_description_first_line: "An open-source, cross-platform markdown editor made with Tauri.",
+                about_description_second_line: "Ubiquity is written in Rust and its frontend is built with Yew and DaisyUI."
+            },
+            settings: {
+                theme_settings_header: "Theme",
+                layout_settings_header: "Layout",
+                single_view: "Single View",
+                single_view_tip: "Use one panel at a time. Swap between the editor and the preview using the icon in the top right of the panel.",
+            }
+        }
+        header: {
+            save_btn_tip: "Save",
+            add_btn_tip: "Import",
+            theme_tip: "Themes",
+            settings_about_tip: "Settings & About"
+        }
+    },
+    entities: [ // this is an array
+        (
+            name: "hero",
+            material: "metal",
+        ),
+        (
+            name: "monster",
+            material: "plastic",
+        ),
+    ],
+)

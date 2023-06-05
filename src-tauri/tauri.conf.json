@@ -1,7 +1,7 @@
 {
     "build": {
-        "beforeBuildCommand": "cd frontend && trunk build --release",
-        "beforeDevCommand": "cd frontend && trunk serve",
+        "beforeBuildCommand": "cd frontend && npx tailwindcss -i ./css/input.css -o ./css/output.css --minify && trunk build --release --features desktop index_desktop.html",
+        "beforeDevCommand": "cd frontend && npx tailwindcss -i ./css/input.css -o ./css/output.css --minify && trunk serve --release --features desktop index_desktop.html",
         "devPath": "http://127.0.0.1:8080",
         "distDir": "../frontend/dist",
         "withGlobalTauri": true
@@ -85,7 +85,7 @@
             }
         },
         "security": {
-            "csp": "default-src * 'unsafe-inline' 'unsafe-eval'; media-src ubi: https://ubi.localhost https://asset.localhost"
+            "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'unsafe-eval' 'unsafe-inline' 'self'; script-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'unsafe-eval' 'unsafe-inline' 'self'"
         },
         "updater": {
             "active": false

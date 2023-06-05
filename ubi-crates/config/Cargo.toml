@@ -8,9 +8,10 @@ license.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+ron = { workspace = true }
 toml = { workspace = true }
 figment = { workspace = true }
 serde = { workspace = true }
 dirs = { workspace = true }
-error = { workspace = true }
 thiserror = { workspace = true }
+error = { workspace = true }

@@ -1,14 +1,12 @@
 use crate::components::welcome_hero::WelcomeHero;
-use crate::contexts::theme::use_theme;
 use yew::prelude::*;
+use crate::pages::background::Background;
 
 #[function_component(Welcome)]
 pub fn welcome() -> Html {
-    let theme = use_theme().state();
-
     html! {
-        <div class="min-h-screen" data-theme={theme}>
+        <Background>
             <WelcomeHero />
-        </div>
+        </Background>
     }
 }

@@ -112,3 +112,12 @@ pub(crate) fn ModalProvider(props: &ModalProviderProps) -> Html {
 pub(crate) fn use_modals_store() -> ModalContext {
     use_context::<ModalContext>().unwrap()
 }
+
+#[function_component(ModalsHtml)]
+pub fn modals_html() -> Html {
+    let modal_store = use_context::<ModalContext>().unwrap();
+    let html = modal_store.modals_html();
+    html! {
+        html
+    }
+}

@@ -1,9 +1,12 @@
+pub mod container;
 pub mod divider;
-pub mod dog;
+pub mod dual_view;
 pub mod header;
 pub mod link_btn;
-pub mod markdown;
+pub mod markdown_preview;
 pub mod markdown_input;
 pub mod modal;
+pub mod single_view;
 pub mod theme_card;
+pub mod tooltip;
 pub mod welcome_hero;

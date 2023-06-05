@@ -1,0 +1,20 @@
+* {
+    scrollbar-width: auto;
+    scrollbar-color: hsl(var(--bc)) hsl(var(--b1));
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    cursor: grab;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--b1) / var(--tw-bg-opacity)); 
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--bc));
+    border-radius: 6px;
+    border: 4px hsl(var(--bc)) solid;
+    background-clip: padding-box;
+}

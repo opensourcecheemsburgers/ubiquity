@@ -1,10 +1,11 @@
 use yew::prelude::*;
-use crate::{contexts::theme::use_theme, components::{header::Header, link_btn::LinkBtn}};
+use crate::{contexts::config::use_config, components::{header::Header, link_btn::LinkBtn}};
 use crate::contexts::modals::use_modals_store;
+use crate::pages::background::Background;
 
 #[function_component(About)]
 pub fn about() -> Html {
-    let theme = use_theme().state();
+    let theme = use_config().state().theme;
     
     let modals_html = use_modals_store().modals_html();
 
@@ -14,7 +15,7 @@ pub fn about() -> Html {
     let daisyui_link = "https://daisyui.com";
     
     html! {
-        <div data-theme={theme} class="select-none">
+        <Background>
             <Header />
             <div class="hero min-h-[calc(100vh-64px)] bg-base-200">
                 <div class="hero-content">
@@ -38,6 +39,6 @@ pub fn about() -> Html {
                 </div>
             </div>
             { modals_html }
-        </div>
+        </Background>
     }
 }

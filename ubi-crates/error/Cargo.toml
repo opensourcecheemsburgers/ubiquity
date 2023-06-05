@@ -9,3 +9,6 @@ rust-version.workspace = true
 
 
 [dependencies]
+gloo = { workspace = true }
+ron = { workspace = true }
+serde = { workspace = true }

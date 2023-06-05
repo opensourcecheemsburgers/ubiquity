@@ -1,22 +1,21 @@
-
-
 use dirs::{config_dir, data_dir};
-use figment::{
-    providers::{Format, Serialized, Toml},
-    Figment,
-};
+use ::error::UbiquityError;
+use ron::ser::PrettyConfig;
 
 use std::fs;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
-use crate::error::ConfigError;
 
 mod error;
 
-#[derive(Clone, Deserialize, Serialize)]
+#[derive(Clone, Deserialize, Serialize, Debug, PartialEq)]
 pub struct Config {
     pub theme: String,
+    pub md_input_font_size: String,
+    pub md_preview_font_size: String,
+    pub mobile_ui: bool,
     pub data_path: Option<PathBuf>,
+    pub view: View
 }
 
 impl Default for Config {
@@ -24,93 +23,88 @@ impl Default for Config {
         Self {
             theme: "synthwave".to_string(),
             data_path: data_dir(),
+            md_input_font_size: String::from("text-base"),
+            md_preview_font_size: String::from("prose-base"),
+            mobile_ui: false,
+            view: View::Dual,
         }
     }
 }
 
+#[derive(Clone, Deserialize, Serialize, Debug, PartialEq)]
+pub enum View {
+    Dual,
+    Input,
+    Preview
+}
+
 impl Config {
-    pub fn save(&self) -> Result<(), ConfigError> {
-        let toml_string = get_config_toml_string(&self)?;
-        write_config_file(toml_string)?;
+    pub fn save(&self) -> Result<(), UbiquityError> {
+        let pretty_ron_config = PrettyConfig::default();
+        let ron_string = ron::ser::to_string_pretty(self, pretty_ron_config)?;
+        write_config_file(&ron_string)?;
         Ok(())
     }
 
-    pub fn load(&mut self) -> Result<(), ConfigError> {
-        let config_path = get_config_file()?;
-        self.save()?;
-        let fig = Figment::new()
-            .merge(Serialized::defaults(Config::default()))
-            .merge(Toml::file(config_path.as_path()));
-        let config = read_config_toml(fig)?;
+    pub fn from_str(ron_str: &str) -> Result<Self, UbiquityError> {
+        let config: Config = ron::from_str(&ron_str)?;
+        Ok(config)
+    }
+
+    pub fn to_string(&self) -> Result<String, UbiquityError> {
+        let pretty_ron_config = PrettyConfig::default();
+        Ok(ron::ser::to_string_pretty(self, pretty_ron_config)?)
+    }
+
+    pub fn load(&mut self) -> Result<(), UbiquityError> {
+        let config = read_config_file()?;
         *self = config;
         Ok(())
     }
 
-    pub fn init() -> Result<(), ConfigError> {
+    pub fn init() -> Result<(), UbiquityError> {
         let config = Self::default();
         config.save()?;
         Ok(())
     }
+
+    pub fn current(&self) -> &Self {
+        &self
+    }
 }
 
-pub fn get_config_file() -> Result<PathBuf, ConfigError> {
+pub fn read_config_file() -> Result<Config, UbiquityError> {
+    let path = get_config_file()?;
+    let config_str = fs::read_to_string(path)?;
+    let config: Config = ron::from_str(&config_str)?;
+    Ok(config)
+}
+
+pub fn write_config_file(ron_string: &str) -> Result<(), UbiquityError> {
+    let path = get_config_file()?;
+    fs::write(path, ron_string)?;
+    Ok(())
+}
+
+pub fn get_config_file() -> Result<PathBuf, UbiquityError> {
     let mut path = get_config_folder()?;
-    path.push("config.toml");
+    path.push("config.ron");
     match path.exists() {
         true => Ok(path),
         false => {
-            match init_config_file(path) {
-                Ok(path) => Ok(path),
-                Err(err) => Err(err)
-            }
+             fs::write(path.clone(), "")?;
+             Ok(path)
         }
     }
 }
 
-pub fn get_config_folder() -> Result<PathBuf, ConfigError> {
+pub fn get_config_folder() -> Result<PathBuf, UbiquityError> {
     match config_dir() {
         Some(mut path) => {
             path.push("ubiquity/");
-            match path.exists() {
-                true => Ok(path),
-                false => {
-                    match fs::create_dir(&path) {
-                        Ok(_) => Ok(path),
-                        Err(_) => Err(ConfigError::CreateFolderError)
-                    }
-                },
-            }
+            fs::create_dir(&path)?;
+            Ok(path)
         },
-        None => Err(ConfigError::OsConfigFolderError),
-    }
-}
-
-pub fn get_config_toml_string(config: &Config) -> Result<String, ConfigError> {
-    match toml::to_string_pretty(config) {
-        Ok(str) => Ok(str),
-        Err(source) => Err(ConfigError::TomlSerError { source })
-    }
-}
-
-pub fn read_config_toml(fig: Figment) -> Result<Config, ConfigError> {
-    let config_res: Result<Config, figment::Error> = fig.extract();
-    match config_res {
-        Ok(config) => Ok(config),
-        Err(source) => Err(ConfigError::TomlDeserError { source }),
-    }
-}
-
-pub fn write_config_file(contents: String) -> Result<(), ConfigError> {
-    let path = get_config_file()?;
-    match std::fs::write(path, contents) {
-        Ok(_) => Ok(()),
-        Err(source) => Err(ConfigError::SaveError { source }),
-    }
-}
-
-pub fn init_config_file(path: PathBuf) -> Result<PathBuf, ConfigError> {
-    match fs::write(&path, "") {
-            Ok(_) => Ok(path),
-            Err(_) => Err(ConfigError::CreateFileError)
+        None => Err(UbiquityError::no_config_folder()),
     }
 }
