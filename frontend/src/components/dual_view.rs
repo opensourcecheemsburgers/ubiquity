@@ -5,10 +5,21 @@ use crate::components::markdown_preview::MarkdownPreview;
 
 #[function_component(DualView)]
 pub fn dual_view() -> Html {
+    let dual_view_classes = classes!(
+        "w-[calc(100vw-2.5rem)]", 
+        "flex",
+        "flex-1", 
+        "flex-row", 
+        "justify-center", 
+        "space-x-8", 
+        "items-center", 
+        "h-[calc(100vh-8.5rem)]"
+    );
+
     html! {
-        <div class="w-[calc(100vw-2.5rem)] flex flex-1 flex-row justify-center space-x-8 items-center h-[calc(100vh-8.25rem)]">
+        <div class={dual_view_classes}>
             <HalfWidthContainer>
-            <MarkdownInput />
+                <MarkdownInput />
             </HalfWidthContainer>
             <HalfWidthContainer>
                 <MarkdownPreview />

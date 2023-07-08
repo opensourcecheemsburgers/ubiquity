@@ -1,5 +1,7 @@
 use yew::prelude::*;
 
+use crate::contexts::config::use_config;
+
 #[derive(Properties, PartialEq)]
 pub struct TooltipProps {
     pub tip: AttrValue,
@@ -10,7 +12,7 @@ pub struct TooltipProps {
     pub position: TooltipPosition
 }
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone, Copy)]
 pub enum TooltipPosition {
     Top,
     Bottom,
@@ -26,7 +28,7 @@ impl Default for TooltipPosition {
 
 #[function_component(Tooltip)]
 pub fn tooltip(props: &TooltipProps) -> Html {
-    let mut tooltip_classes = classes!("tooltip", "tooltip-info");
+    let mut tooltip_classes = classes!("overflow-visible", "tooltip", "tooltip-info", "block");
 
     match &props.position {
         TooltipPosition::Top => tooltip_classes.push("tooltip-top"),
@@ -35,9 +37,17 @@ pub fn tooltip(props: &TooltipProps) -> Html {
         TooltipPosition::Right => tooltip_classes.push("tooltip-right"),
     }
 
+    let is_mobile_ui = use_config().is_mobile_ui();
+
     html! {
-        <div data-tip={&props.tip} class={tooltip_classes} onclick={&props.onclick}>
-            { for props.children.clone() }
-        </div>
+        if !is_mobile_ui {
+            <div data-tip={&props.tip} class={tooltip_classes} onclick={&props.onclick}>
+                { for props.children.clone() }
+            </div>
+        } else {
+            <div>
+                { for props.children.clone() }
+            </div>
+        }
     }
 }

@@ -1,10 +1,15 @@
+#![feature(let_chains)]
+
+#[macro_use]
+extern crate lazy_static;
+
 pub mod pages;
 pub mod contexts;
 pub mod icons;
 pub mod components;
 pub mod errors;
+pub mod tauri;
 
-use contexts::modals::ModalProvider;
 use contexts::config::ConfigProvider;
 
 use pages::about::About;
@@ -23,20 +28,18 @@ use crate::contexts::markdown::MarkdownProvider;
 fn app() -> Html {
     html! {
         <ConfigProvider>
-            <ModalProvider>
                     <MarkdownProvider>
                         <BrowserRouter>
                             <Switch<Page> render={move |page| {
                                 match page {
-                                    Page::Welcome => html!(<Welcome/>),
-                                    Page::Home => html!(<Home/>),
-                                    Page::About => html!(<About/>),
-                                    Page::Settings => html!(<Settings/>),
+                                    Page::Welcome => html!(<Welcome />),
+                                    Page::Home => html!(<Home />),
+                                    Page::About => html!(<About />),
+                                    Page::Settings => html!(<Settings />),
                                 }
                             }} />
                         </BrowserRouter>
                     </MarkdownProvider>
-            </ModalProvider>
         </ConfigProvider>
     }
 }

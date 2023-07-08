@@ -1,56 +1,16 @@
 {
     "build": {
-        "beforeBuildCommand": "cd frontend && npx tailwindcss -i ./css/input.css -o ./css/output.css --minify && trunk build --release --features desktop index_desktop.html",
-        "beforeDevCommand": "cd frontend && npx tailwindcss -i ./css/input.css -o ./css/output.css --minify && trunk serve --release --features desktop index_desktop.html",
+        "beforeBuildCommand": "cd frontend && npx tailwindcss -i ./css/input.css -o ./css/output.css --minify && trunk build --release index.desktop.html",
+        "beforeDevCommand": "cd frontend && trunk serve --release index.desktop.html",
         "devPath": "http://127.0.0.1:8080",
         "distDir": "../frontend/dist",
         "withGlobalTauri": true
     },
     "package": {
-        "productName": "Ubiquity",
-        "version": "0.1.0"
+        "productName": "ubiquity",
+        "version": "0.2.0"
     },
     "tauri": {
-        "allowlist": {
-            "all": false,
-            "shell": {
-                "open": true
-            },
-            "dialog": {
-                "all": true,
-                "open": true,
-                "save": true,
-                "message": true,
-                "ask": true,
-                "confirm": true
-            },
-            "path": {
-                "all": true
-            },
-            "fs": {
-                "all": true,
-                "scope": [
-                    "$CONFIG/ubiquity/*",
-                    "$CONFIG/ubiquity",
-                    "$CONFIG/*",
-                    "$DATA/ubiquity/*",
-                    "$DATA/ubiquity",
-                    "$DATA/*",
-                    "/*",
-                    "*"
-                ]
-            },
-            "protocol": {
-                "asset": true,
-                "assetScope": ["**"]
-            },
-            "http": {
-                "all": true,
-                "request": true,
-                "scope": ["https://**", "http://**", "asset://**", "tauri://**", "ubi://**"]
-            }
-
-        },
         "bundle": {
             "active": true,
             "category": "DeveloperTool",
@@ -87,14 +47,11 @@
         "security": {
             "csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'self'; script-src blob: data: filesystem: ws: wss: http: https: tauri: 'wasm-unsafe-eval' 'self'"
         },
-        "updater": {
-            "active": false
-        },
         "windows": [{
             "fullscreen": false,
             "height": 600,
             "resizable": true,
-            "title": "Ubiquity",
+            "title": "ubiquity",
             "width": 800
         }]
     }

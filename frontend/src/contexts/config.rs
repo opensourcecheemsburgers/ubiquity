@@ -1,9 +1,9 @@
-use std::io;
 use std::ops::Deref;
 use std::path::PathBuf;
 use config::{Config, View};
 use error::UbiquityError;
-use gloo::storage::{LocalStorage, Storage, errors::StorageError};
+use gloo::{storage::{LocalStorage, Storage}, utils::window};
+use web_sys::Navigator;
 use yew::prelude::*;
 
 static CONFIG_STORAGE_KEY: &'static str = "config";
@@ -77,6 +77,10 @@ impl ConfigContext {
             View::Dual => false,
             View::Input | View::Preview => true,
         }
+    }
+
+    pub fn is_mobile_ui(&self) -> bool {
+        self.state().mobile_ui
     }
 
     pub fn set_md_input_font_size(&self, size: String) -> Result<(), UbiquityError> {
@@ -188,10 +192,18 @@ pub(crate) struct ConfigProviderProps {
 
 #[function_component]
 pub(crate) fn ConfigProvider(props: &ConfigProviderProps) -> Html {
-    let config = ConfigContext::load_from_storage().unwrap_or_default();
+    let mut config = ConfigContext::load_from_storage().unwrap_or_default();
+
+    let nav: Navigator = window().navigator();
+    let user_agent = nav.user_agent().unwrap();
+
+    if user_agent.contains("Android") || user_agent.contains("iPhone") {
+        config = Config::mobile();
+    }
+
     let config_state = use_state(|| config);
     let config_context = ConfigContext::new(config_state);
-
+    
     html! {
         <ContextProvider<ConfigContext> context={config_context}>
             {props.children.clone()}

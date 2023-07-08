@@ -16,8 +16,9 @@ pub fn theme_card_button(props: &ThemeCardProps) -> Html {
         config_context.set_theme(card_theme.clone());
     });
 
-    let mut card_classes = classes!(
-        "w-48",
+    let mut card_classes = classes!( 
+        "lg:w-96", 
+        "w-64",
         "overflow-hidden",
         "rounded-lg",
         "border-2",

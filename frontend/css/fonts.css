@@ -1,10 +1,14 @@
 @font-face {
     font-family: "Comfortaa";
     src: local(Comfortaa), url("../fonts/comfortaa.woff2");
-
 }
 
 @font-face {
-    font-family: "Inconsolata";
-    src: local(Inconsolata), url("../fonts/inconsolata.woff2");
+    font-family: "Fira Mono";
+    src: local(Fira Mono), url("../fonts/fira.woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    src: local(Inter)
 }

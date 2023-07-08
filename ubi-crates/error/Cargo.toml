@@ -5,10 +5,13 @@ version = "0.0.0"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
-rust-version.workspace = true
 
 
 [dependencies]
-gloo = { workspace = true }
+gloo = "0.8"
 ron = { workspace = true }
 serde = { workspace = true }
+
+tauri-sys = { git = "https://github.com/bicarlsen/tauri-sys.git", branch = "fs", features = [
+    "all",
+] }

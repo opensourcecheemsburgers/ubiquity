@@ -3,12 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta
-    http-equiv="Content-Security-Policy"
-    content="default-src *  data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; 
-script-src * data: blob: 'unsafe-inline' 'wasm-unsafe-eval';
-style-src * data: blob: 'unsafe-inline';
-font-src * data: blob: 'unsafe-inline';" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Ubiquity</title>
     <link data-trunk rel="css" href="./css/fonts.css" />
     <link data-trunk rel="css" href="./css/output.css" />
@@ -16,7 +11,7 @@ font-src * data: blob: 'unsafe-inline';" />
     <link data-trunk rel="css" href="./css/scrollbar.css" />
     <link data-trunk rel="copy-dir" href="img" />
     <link data-trunk rel="copy-dir" href="fonts" />
-    <link data-trunk rel="rust" data-wasm-opt="z" />
+    <link data-trunk rel="rust" data-wasm-opt="z" data-cargo-features="mobile" />
 </head>
 
 </html>

@@ -1,12 +1,16 @@
+// pub mod btn;
 pub mod container;
 pub mod divider;
+pub mod drawer;
 pub mod dual_view;
 pub mod header;
 pub mod link_btn;
 pub mod markdown_preview;
 pub mod markdown_input;
-pub mod modal;
+pub mod modals;
 pub mod single_view;
+pub mod toasts;
 pub mod theme_card;
 pub mod tooltip;
 pub mod welcome_hero;
+pub mod footer;

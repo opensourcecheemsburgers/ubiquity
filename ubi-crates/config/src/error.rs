@@ -6,9 +6,6 @@ pub enum ConfigError {
     #[error(transparent)]
     IoError(#[from] io::Error),
 
-    #[error("Error serialising string to RON.")]
-    StringToRonError(#[from] toml::ser::Error),
-
     // #[error("Error deserialising RON to string.")]
     // RonToStringError(#[from] ron::de::Error),
 

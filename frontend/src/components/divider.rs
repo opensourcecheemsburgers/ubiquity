@@ -1,8 +1,15 @@
 use yew::prelude::*;
 
-#[function_component(Divider)]
-pub fn divider() -> Html {
+#[function_component(DividerYAxis)]
+pub fn divider_y_axis() -> Html {
     html! {
-        <div class="divider divider-horizontal -mx-1"/>
+        <div class="divider divider-horizontal"/>
+    }
+}
+
+#[function_component(DividerXAxis)]
+pub fn divider_x_axis() -> Html {
+    html! {
+        <div class="divider divider-vertical"/>
     }
 }

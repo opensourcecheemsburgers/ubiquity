@@ -4,21 +4,15 @@ license = "GPL"
 repository = ""
 default-run = "Ubiquity"
 edition = "2021"
-version = "0.0.1"
+version = "0.2.0"
 
 [build-dependencies]
-tauri-build = { version = "1.3.0", features = [] }
+tauri-build = { version = "1.4.0", features = [] }
 
 [dependencies.tauri]
-version = "1.3.0"
+version = "1.4.0"
 features = [
-  "dialog-all",
-  "fs-all",
-  "http-all",
   "linux-protocol-headers",
-  "path-all",
-  "protocol-asset",
-  "shell-open",
 ]
 
 [dependencies]
@@ -27,13 +21,13 @@ log = { workspace = true }
 walkdir = { workspace = true }
 thiserror = { workspace = true }
 dirs = { workspace = true }
-toml = { workspace = true }
-figment = { workspace = true }
 config = { workspace = true }
 error = { workspace = true }
+md = { workspace = true }
 
 window-vibrancy = "0.3.2"
 window-shadows = "0.2.1"
+rfd = "0.10.0"
 
 [features]
 # by default Tauri runs in production mode

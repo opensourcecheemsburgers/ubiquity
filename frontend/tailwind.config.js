@@ -10,14 +10,10 @@ module.exports = {
         require('@tailwindcss/typography')
     ],
     theme: {
-        minWidth: {
-            'screen': '100% - 64px',
-        },
-
         fontFamily: {
             sans: ['Inter', 'sans-serif'],
             display: ['Comfortaa', 'display'],
-            mono: ['Inconsolata', 'mono']
+            mono: ['Fira Mono', 'mono']
         },
     },
     daisyui: {
