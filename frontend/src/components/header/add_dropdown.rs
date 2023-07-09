@@ -90,7 +90,7 @@ pub fn add_file_dropdown() -> Html {
             <label id="add_file_dropdown" tabindex="0" class="btn btn-ghost">
                 <AddFileIcon size={icon_size} />
             </label>
-            <div class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 lg:w-max">
+            <div class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52 lg:w-max">
                 <ul tabindex="0">
                     <CreateFileBtn />
                     <AddFileBtn />

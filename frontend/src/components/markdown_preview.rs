@@ -11,7 +11,16 @@ use crate::{contexts::{markdown::use_markdown, config::use_config}, icons::*, co
 #[function_component(MarkdownPreview)]
 pub fn markdown_preview() -> Html {
     let markdown = use_markdown().state();
-    let md = markdown::to_html_with_options(&markdown.text, &Options { parse: ParseOptions::gfm(), compile: CompileOptions::gfm() }).unwrap();
+
+    let compile = CompileOptions {
+        allow_dangerous_html: true,
+        allow_dangerous_protocol: true,
+        ..CompileOptions::default()
+    };
+    let parse = ParseOptions::gfm();
+    let options = &Options { compile, parse };
+
+    let md = markdown::to_html_with_options(&markdown.text, options).unwrap();
     let md_html = Html::from_html_unchecked(AttrValue::from(md));
 
     let prose_size = use_config().state().md_preview_font_size;
@@ -38,7 +47,7 @@ pub fn markdown_preview() -> Html {
     });
 
     html! {
-        <div class="flex flex-col h-full overflow-visible">
+        <div class="flex flex-col h-full overflow-visible scroll-smooth">
             <div class="flex justify-end">
                 <Tooltip tip={"Decrease preview size"}>
                 <btn onclick={decrease_prose_size} class={btn_classes.clone()}><MinusIcon/></btn>

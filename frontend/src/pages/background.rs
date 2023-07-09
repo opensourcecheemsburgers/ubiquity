@@ -57,7 +57,7 @@ pub fn background(props: &BackgroundProps) -> Html {
 
     match mobile_ui {
         true => classes.push("min-h-[calc(100svh)]"),
-        false => classes.push("min-h-screen]")
+        false => classes.push("min-h-screen")
     }
 
     html! {

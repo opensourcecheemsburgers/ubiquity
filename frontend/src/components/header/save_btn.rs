@@ -54,7 +54,7 @@ pub fn save_btn() -> Html {
 #[cfg(not(feature = "web"))]
 #[function_component(SaveBtn)]
 pub fn save_btn() -> Html {
-    use crate::{tauri::{save_markdown_to_fs}};
+    use crate::tauri::save_markdown_to_fs;
 
     let md_ctx = use_markdown();
     let save_fs: Callback<MouseEvent> = Callback::from(move |_| {
@@ -100,7 +100,7 @@ pub fn save_btn() -> Html {
             <label tabindex="0" class="btn btn-ghost">
                 <SaveIcon size={icon_size} />
             </label>
-            <div class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 lg:w-max">
+            <div class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52 lg:w-max">
                 <ul tabindex="0">
                     <li>
                         <div onclick={save_fs}>

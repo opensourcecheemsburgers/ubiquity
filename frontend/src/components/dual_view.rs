@@ -1,6 +1,6 @@
 use yew::prelude::*;
 use crate::components::container::HalfWidthContainer;
-use crate::components::markdown_input::MarkdownInput;
+use crate::components::editor::editor::Editor;
 use crate::components::markdown_preview::MarkdownPreview;
 
 #[function_component(DualView)]
@@ -19,7 +19,7 @@ pub fn dual_view() -> Html {
     html! {
         <div class={dual_view_classes}>
             <HalfWidthContainer>
-                <MarkdownInput />
+                <Editor />
             </HalfWidthContainer>
             <HalfWidthContainer>
                 <MarkdownPreview />

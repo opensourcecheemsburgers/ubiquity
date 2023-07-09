@@ -6,7 +6,7 @@ pub mod dual_view;
 pub mod header;
 pub mod link_btn;
 pub mod markdown_preview;
-pub mod markdown_input;
+pub mod editor;
 pub mod modals;
 pub mod single_view;
 pub mod toasts;

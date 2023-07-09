@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Development;
+Exec=ubiquity
+Icon=ubiquity
+Name=ubiquity
+Terminal=false
+Type=Application
+X-AppImage-Version=ba2fa37

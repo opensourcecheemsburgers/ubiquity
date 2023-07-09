@@ -1,7 +1,7 @@
 use config::View;
 use yew::prelude::*;
 use crate::components::container::Container;
-use crate::components::markdown_input::MarkdownInput;
+use crate::components::editor::editor::Editor;
 use crate::components::markdown_preview::MarkdownPreview;
 use crate::contexts::config::use_config;
 
@@ -14,7 +14,7 @@ pub fn single_view() -> Html {
             if preview {
                 <MarkdownPreview />
             } else {
-                <MarkdownInput />
+                <Editor />
             }
         </Container>
     }

@@ -19,7 +19,11 @@ Ubiquity is a free and [open-source](https://github.com/opensourcecheemsburgers/
 
 ## Author
 
-Stephen Power is the main developer of Ubiquity. Check out his [website](https://www.stephenpower.ie/).
+Stephen Power is the main developer of Ubiquity.
+
+<a href="https://www.buymeacoffee.com/opensourcecheemsburgers" class="cursor-pointer">
+<img class="w-48" src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg" />
+</a>
 
 ## Language
 
@@ -43,26 +47,26 @@ Ubiquity use two main components for UI design.
 
 Ubiquity uses three different fonts.
 
-- Inter[^1]
-- Comfortaa[^2]
-- Inconsolata[^3]
+- Fira Mono[^1] - The monospace font of the markdown editor.
+- Comfortaa[^2] - The display font used for the "Ubiquity" name.
+- Inter[^3] - The sans-serif font used for markdown preview.
 
 ### Icons
 
 Ubiquity uses Lucide icons. You can find the full Lucide icon library at [lucide.dev](https://lucide.dev).
 
-## File Size
-
+## File Size    
+            
 A note from Stephen Power, the developer of Ubiquity:
 > Ubiquity use multiple different techniques for file size optimisation.
 >
 > For example, platform-specific Rust standard library recompilation, debug stripping, LLVM link time optimisations, WASM file size optimisation, and more.
 
 ### Sample File Size Optimisation Code
-
+    
 ***
 ```rust
-[profile.release]
+[profile.release]        
 panic = "abort"
 codegen-units = 1
 lto = true
@@ -70,7 +74,7 @@ opt-level = "z"
 strip = true
 ```
 ***
-
+        
 ### Platform File Size Table
 
 | Platform | Zipped | Unzipped  |
@@ -78,13 +82,7 @@ strip = true
 | Web       | 1.4MB | 3.3MB |
 | Windows   | 1.4MB | 3.3MB |
 | Linux     | 1.4MB | 3.3MB |
-| Mac       | 1.4MB | 3.3MB |
-| Android   | 1.4MB | 3.3MB |
-| iOS       | 1.4MB | 3.3MB |
 
-**Note:** These numbers are fake.
-
-
-[^1]: [Inter](https://fonts.google.com/specimen/Inter) is a sans-serif font designed by Rasmus Andersson.
+[^1]: [Fira Mono](https://fonts.google.com/specimen/Fira+Mono) is a monospace font designed by Carrois Apostrophe.
 [^2]: [Comfortaa](https://fonts.google.com/specimen/Comfortaa) is a display font designed by Johan Aakerlund.
-[^3]: [Fira Mono](https://fonts.google.com/specimen/Fira+Mono) is a monospace font designed by Carrois Apostrophe."#; 
+[^3]: [Inter](https://fonts.google.com/specimen/Inter) is a sans-serif font designed by Rasmus Andersson."#; 

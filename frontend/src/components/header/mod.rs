@@ -10,7 +10,7 @@ use urlencoding::encode;
 
 use crate::{
     components::{divider::DividerYAxis, theme_card::ThemeDropdownItem, tooltip::Tooltip, header::{save_btn::SaveBtn, add_dropdown::AddFileDropdown}},
-    icons::{AddFileIcon, RedoIcon, UndoIcon, SaveIcon, HamburgerIcon, WrenchIcon},
+    icons::{AddFileIcon, RedoIcon, UndoIcon, SaveIcon, HamburgerIcon, WrenchIcon, EllipsisIcon, PaletteIcon},
     Page, contexts::{markdown::{use_markdown, Markdown}, config::use_config},
 };
 use wasm_bindgen_futures::spawn_local;
@@ -47,6 +47,11 @@ pub fn desktop_header() -> Html {
 
     let download_name = use_markdown().state().key;
 
+    let mut dropdown_classes = classes!("dropdown", "dropdown-end");
+    if !use_config().is_mobile_ui() {
+        dropdown_classes.push("dropdown-hover");
+    }
+
     html! {
         <div class="navbar bg-base-300">
             <div class="navbar-start">
@@ -61,20 +66,11 @@ pub fn desktop_header() -> Html {
             </div>
 
             <div class="navbar-end">
-                <div class="dropdown dropdown-end">
+                <div class={dropdown_classes.clone()}>
                     <label tabindex="0" class="btn btn-ghost rounded-btn">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="13.5" cy="6.5" r=".5"></circle>
-                            <circle cx="17.5" cy="10.5" r=".5"></circle>
-                            <circle cx="8.5" cy="7.5" r=".5"></circle>
-                            <circle cx="6.5" cy="12.5" r=".5"></circle>
-                            <path
-                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z">
-                            </path>
-                        </svg>
+                        <PaletteIcon />
                     </label>
-                    <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-300 rounded-box w-52 mt-4">
+                    <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-52">
                         <ThemeDropdownItem name={"aqua"} />
                         <ThemeDropdownItem name={"night"} />
                         <ThemeDropdownItem name={"synthwave"} />
@@ -85,15 +81,11 @@ pub fn desktop_header() -> Html {
                     </ul>
                 </div>
 
-                <div class="dropdown dropdown-end">
+                <div class={dropdown_classes}>
                     <label tabindex="0" class="btn btn-ghost rounded-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block w-5 h-5 stroke-current">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"
-                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                        </svg>
+                    <EllipsisIcon />
                     </label>
-                    <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-300 rounded-box w-52 mt-4">
+                    <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-52">
                         <li><a onclick={settings_cb}>{"Settings"}</a></li>
                         <li><a onclick={about_cb}>{"About"}</a></li>
                     </ul>
@@ -117,8 +109,6 @@ pub fn mobile_header() -> Html {
     );
     let header_end_classes = classes!("flex", "flex-row", "justify-end", "-space-x-1");
     let header_btn_classes = classes!("btn", "btn-ghost");
-
-    let header_icon_size = AttrValue::from("32");
 
     let nav = use_navigator().unwrap();
     let settings_cb = Callback::from(move |_| nav.push(&Page::Settings));
