@@ -10,4 +10,4 @@ output.css
 package-lock.json
 target/
 .idea/
-src-tauri/icons
+binaries/
