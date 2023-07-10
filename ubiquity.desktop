@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=Ubiquity
+GenericName=Markdown Editor
+Comment=Markdown Editor
+Exec=ubiquity %u
+Icon=/usr/share/icons/hicolor/scalable/apps/ubiquity.svg
+Terminal=false
+Type=Application
+Categories=Development;Office;
+Keywords=markdown;editor;
+Actions=new-window;
+
+X-Desktop-File-Install-Version=0.3.0
+
+[Desktop Action new-window]
+Name=Open a New Window
+Exec=rustdesk %u
