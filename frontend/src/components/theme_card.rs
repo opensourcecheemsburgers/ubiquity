@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-use crate::contexts::config::{use_config, ConfigContext};
+use crate::contexts::{config::{use_config, ConfigContext}, toasts::{use_toaster, err_modal}};
 
 #[derive(Properties, PartialEq)]
 pub struct ThemeCardProps {
@@ -12,8 +12,9 @@ pub fn theme_card_button(props: &ThemeCardProps) -> Html {
     let config_context: ConfigContext = use_config();
     let card_theme = props.name.to_string();
 
+    let toaster = use_toaster();
     let switch_theme = Callback::from(move |_| {
-        config_context.set_theme(card_theme.clone());
+        config_context.set_theme(card_theme.clone()).unwrap_or_else(|err| err_modal(err, toaster.clone()));
     });
 
     let mut card_classes = classes!( 
@@ -72,10 +73,11 @@ pub fn theme_card_button(props: &ThemeCardProps) -> Html {
 #[function_component(ThemeDropdownItem)]
 pub fn theme_dropdown_item(props: &ThemeCardProps) -> Html {
     let config_context: ConfigContext = use_config();
+    let toaster = use_toaster();
     let card_theme = props.name.to_string();
 
     let switch_theme = Callback::from(move |_| {
-        config_context.set_theme(card_theme.clone());
+        config_context.set_theme(card_theme.clone()).unwrap_or_else(|err| err_modal(err, toaster.clone()));
     });
 
     html! {

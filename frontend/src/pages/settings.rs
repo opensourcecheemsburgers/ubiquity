@@ -1,8 +1,7 @@
 use config::View;
 use yew::prelude::*;
 use crate::components::drawer::Drawer;
-use crate::components::tooltip::{TooltipPosition, Tooltip};
-use crate::components::{theme_card::ThemeCard, header::Header};
+use crate::components::{theme_card::ThemeCard, header::header::Header};
 use crate::contexts::config::{use_config, THEMES};
 use crate::pages::background::Background;
 
@@ -30,7 +29,7 @@ pub struct SettingsPageProps {
 
 #[function_component(SettingsPage)]
 pub fn settings_page(props: &SettingsPageProps) -> Html {
-    let mut page_classes = classes!(
+    let page_classes = classes!(
         "flex",
         "justify-center",
         "bg-base-100"
@@ -133,7 +132,7 @@ pub fn layout_settings() -> Html {
         let _ = config_context.toggle_mobile_ui();
     });
 
-    let mut classes = classes!("flex", "flex-col");
+    let classes = classes!("flex", "flex-col");
 
     html! {
         <div class={classes}>

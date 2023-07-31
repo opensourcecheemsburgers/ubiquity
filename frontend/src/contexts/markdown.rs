@@ -86,8 +86,10 @@ impl MarkdownContext {
         Ok(())
     }
 
-    pub fn set_markdown(&self, md: Markdown) {
+    pub fn set_markdown(&self, md: Markdown) -> Result<(), UbiquityError> {
         self.inner.set(md);
+        self.save_to_browser_storage()?;
+        Ok(())
     }
 
 
@@ -100,9 +102,10 @@ impl MarkdownContext {
         self.inner.set(new_md);
     }
 
-    pub fn add_markdown(&self, markdown: Markdown) {
-        markdown.save_to_browser_storage();
+    pub fn add_markdown(&self, markdown: Markdown) -> Result<(), UbiquityError> {
+        markdown.save_to_browser_storage()?;
         self.inner.set(markdown);
+        Ok(())
     }
 
     pub fn state(&self) -> Markdown {

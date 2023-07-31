@@ -11,7 +11,6 @@ license.workspace = true
 gloo = "0.8"
 ron = { workspace = true }
 serde = { workspace = true }
-
-tauri-sys = { git = "https://github.com/bicarlsen/tauri-sys.git", branch = "fs", features = [
-    "all",
-] }
+serde_json = "1.0.1"
+js-sys = "0.3.63"
+tauri-sys = { workspace = true }

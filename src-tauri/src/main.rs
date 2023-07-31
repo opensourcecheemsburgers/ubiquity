@@ -8,8 +8,9 @@ use std::{fs, path::PathBuf};
 
 use error::UbiquityError;
 use tauri::{generate_context, Manager};
-use rfd::{AsyncFileDialog, FileDialog};
 use md::*;
+
+use rfd::FileDialog;
 
 #[cfg(not(target_os = "linux"))]
 use window_vibrancy::{apply_blur, apply_vibrancy, NSVisualEffectMaterial};
@@ -42,9 +43,11 @@ fn main() {
 fn save_file(path: Option<String>, contents: String) -> Result<String, UbiquityError> {
     if let Some(path_key) = path && !path_key.eq(&DOCS_KEY) {
       let path = PathBuf::from(path_key.clone());
-      save_to_fs(path, contents);
-      Ok(path_key)
-
+      
+      match save_to_fs(path, contents) {
+        Ok(_) => Ok(path_key),
+        Err(err) => Err(err)
+      }
     } else {
         let mut dir = PathBuf::from("/");
         if let Some(docs_dir) = dirs::document_dir() {

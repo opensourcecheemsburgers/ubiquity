@@ -30,7 +30,7 @@ pub fn drawer(props: &DrawerProps) -> Html {
     );
 
     html! {
-        <div data-theme={theme} class="drawer">
+        <div data-theme={theme} class="drawer print:hidden">
             <input id="drawer-input" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content">
                 { props.children.clone() }

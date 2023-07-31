@@ -14,3 +14,4 @@ pub mod theme_card;
 pub mod tooltip;
 pub mod welcome_hero;
 pub mod footer;
+pub mod pdf;

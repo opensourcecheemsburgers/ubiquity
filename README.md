@@ -1,8 +1,8 @@
 # Ubiquity
 
-A cross-platform markdown editor written in Rust. Made with Tauri, Yew, Tailwind and DaisyUI.
+A cross-platform markdown editor written in Rust. Currently in pre-alpha.
 
-Try out the [web version](https://ubiquity.rs) of Ubiquity.
+Made with Tauri, Yew and DaisyUI.
 
 ![Ubiquity Home](screenshots/ubi.png)
 

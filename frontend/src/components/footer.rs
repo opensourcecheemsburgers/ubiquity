@@ -9,18 +9,18 @@ pub fn footer() -> Html {
     let config_clone = config.clone();
 
     let swap_to_preview = Callback::from(move |_| {
-        config.set_view(View::Preview);
+        config.set_view(View::Preview).unwrap();
     });
 
     let swap_to_editor = Callback::from(move |_| {
-        config_clone.set_view(View::Input);
+        config_clone.set_view(View::Input).unwrap();
     });
 
     let footer_classes = classes!(
         "flex",
         "flex-row",
         "min-w-screen",
-        "py-2",
+        "h-[56px]",
         "bg-base-300",
     );
 
@@ -49,13 +49,13 @@ pub fn footer() -> Html {
         <div class={footer_classes}>
             <div onclick={swap_to_editor} class={footer_section_classes.clone()}>
                 <div class={footer_item_classes.clone()}>
-                    <PreviewDisabledIcon />
+                    <PreviewDisabledIcon classes={"h-6 w-6"} />
                     <p class={footer_item_text_classes.clone()}>{"Editor"}</p>
                 </div>
             </div>
             <div onclick={swap_to_preview} class={footer_section_classes}>
                 <div class={footer_item_classes}>
-                    <PreviewEnabledIcon />
+                    <PreviewEnabledIcon classes={"h-6 w-6"} />
                     <p class={footer_item_text_classes}>{"Preview"}</p>
                 </div>
             </div>

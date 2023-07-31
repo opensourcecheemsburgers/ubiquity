@@ -1,13 +1,9 @@
 #![feature(let_chains)]
 
-#[macro_use]
-extern crate lazy_static;
-
 pub mod pages;
 pub mod contexts;
 pub mod icons;
 pub mod components;
-pub mod errors;
 pub mod tauri;
 
 use contexts::config::ConfigProvider;
@@ -23,23 +19,26 @@ use yew_router::prelude::*;
 use pages::Page;
 
 use crate::contexts::markdown::MarkdownProvider;
+use crate::contexts::toasts::ToasterProvider;
 
 #[function_component(App)]
 fn app() -> Html {
     html! {
         <ConfigProvider>
-                    <MarkdownProvider>
-                        <BrowserRouter>
-                            <Switch<Page> render={move |page| {
-                                match page {
-                                    Page::Welcome => html!(<Welcome />),
-                                    Page::Home => html!(<Home />),
-                                    Page::About => html!(<About />),
-                                    Page::Settings => html!(<Settings />),
-                                }
-                            }} />
-                        </BrowserRouter>
-                    </MarkdownProvider>
+            <ToasterProvider>
+                <MarkdownProvider>
+                    <BrowserRouter>
+                        <Switch<Page> render={move |page| {
+                            match page {
+                                Page::Welcome => html!(<Welcome />),
+                                Page::Home => html!(<Home />),
+                                Page::About => html!(<About />),
+                                Page::Settings => html!(<Settings />),
+                            }
+                        }} />
+                    </BrowserRouter>
+                </MarkdownProvider>
+            </ToasterProvider>
         </ConfigProvider>
     }
 }

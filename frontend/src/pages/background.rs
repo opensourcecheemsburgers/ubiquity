@@ -1,12 +1,9 @@
-use std::ops::Deref;
-
-use gloo::{utils::document, events::EventListener};
+use gloo::utils::document;
 use log::debug;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
-use web_sys::{HtmlLabelElement, HtmlInputElement};
+use web_sys::HtmlInputElement;
+use crate::contexts::config::use_config;
 use yew::prelude::*;
-
-use crate::{contexts::{config::use_config}, components::drawer::Drawer};
 
 
 #[derive(Properties, PartialEq)]
@@ -53,8 +50,9 @@ pub fn background(props: &BackgroundProps) -> Html {
         }
     });
 
-    let mut classes = classes!("flex", "flex-col", "justify-between", "max-w-[calc(100dvw)]");
-
+    // let mut classes = classes!("flex", "flex-col", "justify-between", "min-h-[calc(100svh)]", "max-h-[calc(100svh)]", "min-w-[calc(100svw)]", "max-w-[calc(100svw)]");
+    let mut classes = classes!("flex", "flex-col", "justify-between", "max-w-[calc(100svw)]", "print:hidden");
+    
     match mobile_ui {
         true => classes.push("min-h-[calc(100svh)]"),
         false => classes.push("min-h-screen")

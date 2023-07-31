@@ -1,0 +1,14 @@
+[package]
+name = "mdtg"
+version = "1.0.1"
+authors = ["lukakerr <lukakerr1@gmail.com>"]
+description = "Quickly generate markdown tables in your terminal using a simplistic specification"
+homepage = "https://github.com/lukakerr/mdtg"
+repository = "https://github.com/lukakerr/mdtg"
+readme = "./README.md"
+keywords = ["markdown", "table", "terminal", "bnf"]
+categories = ["command-line-utilities", "parser-implementations", "text-processing"]
+license = "MIT"
+
+[dependencies]
+error = { workspace = true }

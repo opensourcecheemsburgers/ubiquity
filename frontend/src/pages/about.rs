@@ -1,9 +1,7 @@
-use gloo::utils::{document, window};
-use wasm_bindgen::JsCast;
+use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
-use crate::{contexts::config::use_config, components::{header::Header, link_btn::LinkBtn, drawer::Drawer}, icons::{MoneroQr, BitcoinQr}};
+use crate::{contexts::config::use_config, components::{header::header::Header, link_btn::LinkBtn, drawer::Drawer}, icons::{MoneroQr, BitcoinQr}};
 use crate::pages::background::Background;
-use web_sys::{HtmlDialogElement, Navigator};
 
 #[function_component(About)]
 pub fn about() -> Html {
@@ -26,7 +24,7 @@ pub fn about() -> Html {
         false => hero_classes.push("h-[calc(100vh-4rem)]")
     }
 
-    let hero_content_classes = classes!("hero-content");
+    let hero_content_classes = classes!("hero-content", "font-mono");
 
     let article_classes = classes!(
         "prose-xl",
@@ -36,11 +34,13 @@ pub fn about() -> Html {
         "cursor-default"
     );
 
-    let header_classes = classes!("font-display");
+    let header_classes = classes!("font-display", "lg:text-5xl", "text-4xl", "font-medium");
+    let subheader_classes = classes!("font-display", "lg:text-4xl", "text-3xl", "font-medium");
 
     let text_classes = classes!(        
         "lg:text-2xl",
-        "text-xl"
+        "text-xl",
+        "font-mono"
     );
 
     let links_container_classes = classes!(
@@ -59,36 +59,46 @@ pub fn about() -> Html {
                 <Header />
                 <div class={hero_classes}>
                     <div class={hero_content_classes}>
-                        <article class={article_classes}>
-                            <h1 class={header_classes.clone()}>{"Ubiquity"}</h1>
-                            <p class={text_classes.clone()}>
-                                {"An open-source, cross-platform markdown editor made with Tauri."}
-                            </p>
-                            <p class={text_classes.clone()}>
-                                {"Ubiquity is written in Rust and its frontend is built with Yew and DaisyUI."}
-                            </p>
-                            <h2 class="font-display">{"Donate"}</h2>
-                            <p class={text_classes.clone()}>{"Ubiquity is a FOSS project. Support my work and further
-                                development."}
-                            </p>
-                            <p class={text_classes.clone()}>{"All donations are greatly appreciated, no matter the
-                                size."}
-                            </p>
-                            <div class={links_container_classes.clone()}>
-                                <BuyMeACoffeeDonationBtn />
-                                <PaypalDonationBtn />
-                                <MoneroDonationBtn />
-                                <BitcoinDonationBtn />
+                        <div class="flex flex-col space-y-16 lg:space-y-20">
+                            <div class="flex flex-col space-y-8 lg:space-y-10">
+                                <h1 class={header_classes.clone()}>{"Ubiquity"}</h1>
+                                <div>
+                                    <p class={text_classes.clone()}>
+                                        {"An open-source, cross-platform markdown editor made with Tauri."}
+                                    </p>
+                                    <p class={text_classes.clone()}>
+                                        {"Ubiquity is written in Rust and its frontend is built with Yew and DaisyUI."}
+                                    </p>
+                                </div>
                             </div>
-                            <h2 class="font-display">{"Links"}</h2>
-                            <div class={links_container_classes}>
-                                <LinkBtn title={"Source Code"} link={source_code_link} />
-                                <LinkBtn title={"Tauri"} link={tauri_link} />
-                                <LinkBtn title={"Yew"} link={yew_link} />
-                                <LinkBtn title={"Tailwind"} link={tailwind_link} />
-                                <LinkBtn title={"Daisy UI"} link={daisyui_link} />
+                            <div class="flex flex-col space-y-8 lg:space-y-10">
+                                <h2 class={subheader_classes.clone()}>{"Donate"}</h2>
+                                <div>
+                                    <p class={text_classes.clone()}>{"Ubiquity is a FOSS project. Support my work and further
+                                        development."}
+                                    </p>
+                                    <p class={text_classes.clone()}>{"All donations are greatly appreciated, no matter the
+                                        size."}
+                                    </p>
+                                </div>
+                                <div class={links_container_classes.clone()}>
+                                    <BuyMeACoffeeDonationBtn />
+                                    <PaypalDonationBtn />
+                                    <MoneroDonationBtn />
+                                    <BitcoinDonationBtn />
+                                </div>
                             </div>
-                        </article>
+                            <div class="flex flex-col space-y-8 lg:space-y-10">
+                                <h2 class={subheader_classes.clone()}>{"Links"}</h2>
+                                <div class={links_container_classes}>
+                                    <LinkBtn title={"Source Code"} link={source_code_link} />
+                                    <LinkBtn title={"Tauri"} link={tauri_link} />
+                                    <LinkBtn title={"Yew"} link={yew_link} />
+                                    <LinkBtn title={"Tailwind"} link={tailwind_link} />
+                                    <LinkBtn title={"Daisy UI"} link={daisyui_link} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Background>
@@ -105,7 +115,10 @@ pub struct CopyAddressBtnProps {
 pub fn copy_address_btn(props: &CopyAddressBtnProps) -> Html {
     let address = props.address.clone();
     let copy = Callback::from(move |_| {
-        tauri_sys::clipboard::write_text(&address);
+        let address = address.clone();
+        spawn_local(async move {
+            tauri_sys::clipboard::write_text(&address).await; 
+        });
     });
 
     html! {

@@ -1,11 +1,7 @@
-use config::View;
-use gloo::utils::document;
-use wasm_bindgen::JsCast;
-use web_sys::HtmlDocument;
 use yew::prelude::*;
 use markdown::{self, Options, ParseOptions, CompileOptions};
 
-use crate::{contexts::{markdown::use_markdown, config::use_config}, icons::*, components::tooltip::Tooltip};
+use crate::{contexts::{markdown::use_markdown, config::use_config, toasts::{use_toaster, err_modal}}, icons::*, components::tooltip::Tooltip};
 
 /// A HTML preview of the user's markdown.
 #[function_component(MarkdownPreview)]
@@ -27,7 +23,18 @@ pub fn markdown_preview() -> Html {
     let classes = classes!(
         "prose",
         "prose-img:rounded-xl",
+        "prose-pre:bg-base-300",
+        "prose-pre:text-base-content",
+        "prose-pre:overflow-auto",
+        "prose-code:bg-base-300",
+        "prose-code:px-[5.5px]",
+        "prose-code:font-normal",
+        "prose-code:rounded-[0.3125rem]",
+        "prose-code:overflow-auto",
+        "prose-a:no-underline",
+        "prose-a:text-info",
         prose_size,
+        "print:block"
     );
 
     let btn_classes = classes!(
@@ -37,27 +44,31 @@ pub fn markdown_preview() -> Html {
     );
 
     let config_ctx = use_config();
+    let toaster_ctx = use_toaster();
     let increase_prose_size = Callback::from(move |_| {
-        config_ctx.increase_preview_font_size().unwrap();
+        let toaster_ctx = toaster_ctx.clone();
+        config_ctx.increase_preview_font_size().unwrap_or_else(|err| err_modal(err, toaster_ctx));
     });
 
     let config_ctx = use_config();
+    let toaster_ctx = use_toaster();
     let decrease_prose_size = Callback::from(move |_| {
-        config_ctx.decrease_preview_font_size().unwrap();
+        let toaster_ctx = toaster_ctx.clone();
+        config_ctx.decrease_preview_font_size().unwrap_or_else(|err| err_modal(err, toaster_ctx));
     });
 
     html! {
         <div class="flex flex-col h-full overflow-visible scroll-smooth">
             <div class="flex justify-end">
                 <Tooltip tip={"Decrease preview size"}>
-                <btn onclick={decrease_prose_size} class={btn_classes.clone()}><MinusIcon/></btn>
+                <btn onclick={decrease_prose_size} class={btn_classes.clone()}><FontDecreaseIcon/></btn>
                 </Tooltip>
                 <Tooltip tip={"Increase preview size"}>
-                <btn onclick={increase_prose_size} class={btn_classes.clone()}><PlusIcon/></btn>
+                    <btn onclick={increase_prose_size} class={btn_classes.clone()}><FontIncreaseIcon/></btn>
                 </Tooltip>
             </div>
             <div class="overflow-auto">
-                <article class={classes}>
+                <article id="preview" class={classes}>
                     { md_html }
                 </article>
             </div>

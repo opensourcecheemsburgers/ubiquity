@@ -12,7 +12,7 @@ pub fn container(props: &ContainerProps) -> Html {
     
     let mut container_classes = classes!(
         "my-auto",
-        "border-2", 
+        "border", 
         "border-base-content", 
         "rounded-xl",
         "p-4",
@@ -39,7 +39,7 @@ pub fn container(props: &ContainerProps) -> Html {
 #[function_component(HalfWidthContainer)]
 pub fn half_width_container(props: &ContainerProps) -> Html {
     html! {
-        <div class="w-[48%] flex-none h-[calc(100vh-8.25rem)] border-2 border-base-content rounded-xl py-6 px-8">
+        <div class="w-[48%] flex-none h-[calc(100vh-8.25rem)] border border-base-content rounded-xl pt-4 pb-6 px-8">
             { props.children.clone() }
         </div>
     }

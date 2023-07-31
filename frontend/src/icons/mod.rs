@@ -2,6 +2,9 @@
 
 use yew::prelude::*;
 
+pub static RESPONSIVE_ICON_LG: &'static str = "h-5 w-5 lg:h-6 lg:w-6 2xl:h-7 2xl:w-7";
+pub static RESPONSIVE_ICON: &'static str = "h-4 w-4 lg:h-5 lg:w-5 2xl:h-6 2xl:w-6";
+
 const STROKE: AttrValue = AttrValue::Static("currentColor");
 const STROKE_WIDTH: AttrValue = AttrValue::Static("1.5");
 const BOX: AttrValue = AttrValue::Static("0 0 24 24");
@@ -10,18 +13,23 @@ const LCAP: AttrValue = AttrValue::Static("round");
 const LJOIN: AttrValue = AttrValue::Static("round");
 
 #[derive(Debug, PartialEq, Properties)]
-pub struct SvgProps {
-    #[prop_or(AttrValue::from("24"))]
-    pub size: AttrValue,
+pub struct SvgProps {    
+    #[prop_or(RESPONSIVE_ICON)]
+    pub classes: &'static str,
     pub children: Children
+}
+
+#[derive(Debug, PartialEq, Properties)]
+pub struct IconProps {    
+    #[prop_or(RESPONSIVE_ICON)]
+    pub classes: &'static str,
 }
 
 #[function_component(Svg)]
 pub fn svg(props: &SvgProps) -> Html {
     html! {
         <svg 
-            width={&props.size} 
-            height={&props.size} 
+            class={props.classes}
             viewBox={BOX} 
             fill={FILL} 
             stroke={STROKE} 
@@ -33,16 +41,10 @@ pub fn svg(props: &SvgProps) -> Html {
     }
 }
 
-#[derive(Debug, PartialEq, Properties)]
-pub struct IconProps {
-    #[prop_or(AttrValue::from("24"))]
-    pub size: AttrValue,
-}
-
 #[function_component(ChooseViewIcon)]
 pub fn choose_view_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/>
             <path d="M10 19v-3.96 3.15"/>
             <path d="M7 19h5"/>
@@ -54,7 +56,7 @@ pub fn choose_view_icon(props: &IconProps) -> Html {
 #[function_component(PreviewEnabledIcon)]
 pub fn preview_enabled_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
             <circle cx="12" cy="12" r="3"/>
         </Svg>
@@ -64,7 +66,7 @@ pub fn preview_enabled_icon(props: &IconProps) -> Html {
 #[function_component(PreviewDisabledIcon)]
 pub fn preview_disabled_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-keyboard"><rect width="20" height="16" x="2" y="4" rx="2" ry="2"/><path d="M6 8h.001"/><path d="M10 8h.001"/><path d="M14 8h.001"/><path d="M18 8h.001"/><path d="M8 12h.001"/><path d="M12 12h.001"/><path d="M16 12h.001"/><path d="M7 16h10"/></svg>
         </Svg>
     }
@@ -73,7 +75,7 @@ pub fn preview_disabled_icon(props: &IconProps) -> Html {
 #[function_component(PlusIcon)]
 pub fn plus_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <line x1="12" x2="12" y1="5" y2="19"/>
             <line x1="5" x2="19" y1="12" y2="12"/>
         </Svg>
@@ -83,7 +85,7 @@ pub fn plus_icon(props: &IconProps) -> Html {
 #[function_component(MinusIcon)]
 pub fn minus_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <line x1="5" x2="19" y1="12" y2="12"/>
         </Svg>
     }
@@ -92,7 +94,7 @@ pub fn minus_icon(props: &IconProps) -> Html {
 #[function_component(HamburgerIcon)]
 pub fn hamburger_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <line x1="4" x2="20" y1="12" y2="12"/>
             <line x1="4" x2="20" y1="6" y2="6"/>
             <line x1="4" x2="20" y1="18" y2="18"/>
@@ -103,7 +105,7 @@ pub fn hamburger_icon(props: &IconProps) -> Html {
 #[function_component(WrenchIcon)]
 pub fn wrench_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
         </Svg>
 
@@ -113,7 +115,7 @@ pub fn wrench_icon(props: &IconProps) -> Html {
 #[function_component(AlbumIcon)]
 pub fn album_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <circle cx="12" cy="12" r="10"/>
             <circle cx="12" cy="12" r="3"/>
         </Svg>
@@ -123,7 +125,7 @@ pub fn album_icon(props: &IconProps) -> Html {
 #[function_component(FolderIcon)]
 pub fn folder_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M17.5 22h.5c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3">
             </path>
             <polyline points="14 2 14 8 20 8"></polyline>
@@ -137,7 +139,7 @@ pub fn folder_icon(props: &IconProps) -> Html {
 #[function_component(PlaylistIcon)]
 pub fn playlist_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M21 15V6"></path>
             <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path>
             <path d="M12 12H3"></path>
@@ -150,7 +152,7 @@ pub fn playlist_icon(props: &IconProps) -> Html {
 #[function_component(SettingsIcon)]
 pub fn settings_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M20 7h-9"></path>
             <path d="M14 17H5"></path>
             <circle cx="17" cy="17" r="3"></circle>
@@ -162,7 +164,7 @@ pub fn settings_icon(props: &IconProps) -> Html {
 #[function_component(AddFileIcon)]
 pub fn add_file_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
             <path d="M3 15h6"></path>
@@ -174,7 +176,7 @@ pub fn add_file_icon(props: &IconProps) -> Html {
 #[function_component(SaveIcon)]
 pub fn save_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
             <polyline points="17 21 17 13 7 13 7 21"></polyline>
             <polyline points="7 3 7 8 15 8"></polyline>
@@ -185,7 +187,7 @@ pub fn save_icon(props: &IconProps) -> Html {
 #[function_component(FolderAddIcon)]
 pub fn folder_add_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path
                 d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z">
             </path>
@@ -198,7 +200,7 @@ pub fn folder_add_icon(props: &IconProps) -> Html {
 #[function_component(PlaylistAddIcon)]
 pub fn playlist_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M11 12H3"></path>
             <path d="M16 6H3"></path>
             <path d="M16 18H3"></path>
@@ -211,7 +213,7 @@ pub fn playlist_icon(props: &IconProps) -> Html {
 #[function_component(UndoIcon)]
 pub fn undo_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M9 14 4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"></path>
         </Svg>
     }
@@ -220,7 +222,7 @@ pub fn undo_icon(props: &IconProps) -> Html {
 #[function_component(RedoIcon)]
 pub fn redo_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="m15 14 5-5-5-5"></path><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13"></path>
         </Svg>
     }
@@ -229,7 +231,7 @@ pub fn redo_icon(props: &IconProps) -> Html {
 #[function_component(BoldIcon)]
 pub fn bold_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M14 12a4 4 0 0 0 0-8H6v8"/>
             <path d="M15 20a4 4 0 0 0 0-8H6v8Z"/>
         </Svg>
@@ -239,7 +241,7 @@ pub fn bold_icon(props: &IconProps) -> Html {
 #[function_component(ItalicsIcon)]
 pub fn bold_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/>
             <line x1="15" x2="9" y1="4" y2="20"/>
         </Svg>
@@ -249,7 +251,7 @@ pub fn bold_icon(props: &IconProps) -> Html {
 #[function_component(QuoteIcon)]
 pub fn quote_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
             <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
         </Svg>
@@ -259,7 +261,7 @@ pub fn quote_icon(props: &IconProps) -> Html {
 #[function_component(HeadingIcon)]
 pub fn heading_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M6 12h12"/>
             <path d="M6 20V4"/>
             <path d="M18 20V4"/>
@@ -270,7 +272,7 @@ pub fn heading_icon(props: &IconProps) -> Html {
 #[function_component(Heading1Icon)]
 pub fn heading1_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="m17 12 3-2v8"/>
         </Svg>
     }
@@ -278,7 +280,7 @@ pub fn heading1_icon(props: &IconProps) -> Html {
 #[function_component(Heading2Icon)]
 pub fn heading2_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/>
             <path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1"/>
         </Svg>
@@ -287,7 +289,7 @@ pub fn heading2_icon(props: &IconProps) -> Html {
 #[function_component(Heading3Icon)]
 pub fn heading3_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/>
             <path d="M17.5 10.5c1.7-1 3.5 0 3.5 1.5a2 2 0 0 1-2 2"/>
             <path d="M17 17.5c2 1.5 4 .3 4-1.5a2 2 0 0 0-2-2"/>
@@ -297,7 +299,7 @@ pub fn heading3_icon(props: &IconProps) -> Html {
 #[function_component(Heading4Icon)]
 pub fn heading4_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/>
             <path d="M17 10v4h4"/><path d="M21 10v8"/>
         </Svg>
@@ -306,7 +308,7 @@ pub fn heading4_icon(props: &IconProps) -> Html {
 #[function_component(Heading5Icon)]
 pub fn heading5_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M4 12h8"/>
             <path d="M4 18V6"/>
             <path d="M12 18V6"/>
@@ -318,7 +320,7 @@ pub fn heading5_icon(props: &IconProps) -> Html {
 #[function_component(Heading6Icon)]
 pub fn heading6_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M4 12h8"/>
             <path d="M4 18V6"/>
             <path d="M12 18V6"/>
@@ -331,7 +333,7 @@ pub fn heading6_icon(props: &IconProps) -> Html {
 #[function_component(LinkIcon)]
 pub fn link_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
         </Svg>
     }
@@ -340,7 +342,7 @@ pub fn link_icon(props: &IconProps) -> Html {
 #[function_component(PaletteIcon)]
 pub fn palette_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <circle cx="13.5" cy="6.5" r=".5"/>
             <circle cx="17.5" cy="10.5" r=".5"/>
             <circle cx="8.5" cy="7.5" r=".5"/>
@@ -355,7 +357,7 @@ pub fn palette_icon(props: &IconProps) -> Html {
 #[function_component(EllipsisIcon)]
 pub fn ellipsis_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <circle cx="12" cy="12" r="1"/>
             <circle cx="19" cy="12" r="1"/>
             <circle cx="5" cy="12" r="1"/>
@@ -366,7 +368,7 @@ pub fn ellipsis_icon(props: &IconProps) -> Html {
 #[function_component(FormatIcon)]
 pub fn format_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/>
         </Svg>
     }
@@ -375,8 +377,58 @@ pub fn format_icon(props: &IconProps) -> Html {
 #[function_component(ImageIcon)]
 pub fn image_icon(props: &IconProps) -> Html {
     html! {
-        <Svg size={&props.size}>
+        <Svg classes={&props.classes}>
             <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+        </Svg>
+    }
+}
+
+#[function_component(TableIcon)]
+pub fn table_icon(props: &IconProps) -> Html {
+    html! {
+        <Svg classes={&props.classes}>
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="3" y2="21"/><line x1="15" x2="15" y1="3" y2="21"/>
+        </Svg>
+    }
+}
+
+#[function_component(FontDecreaseIcon)]
+pub fn font_decrease_icon(props: &IconProps) -> Html {
+    html! {
+        <Svg classes={&props.classes}>
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/>
+        </Svg>
+    }
+}
+
+#[function_component(FontIncreaseIcon)]
+pub fn font_increase_icon(props: &IconProps) -> Html {
+    html! {
+        <Svg classes={&props.classes}>
+            <circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/>
+            <line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/>
+        </Svg>
+    }
+}
+
+#[function_component(CloseIcon)]
+pub fn close_icon(props: &IconProps) -> Html {
+    html! {
+        <Svg classes={&props.classes}>
+            <path d="M18 6 6 18"/>
+            <path d="m6 6 12 12"/>
+        </Svg>
+    }
+}
+
+#[function_component(AddImageIcon)]
+pub fn add_image_icon(props: &IconProps) -> Html {
+    html! {
+        <Svg classes={&props.classes}>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"/>
+            <line x1="16" x2="22" y1="5" y2="5"/><line x1="19" x2="19" y1="2" y2="8"/>
+            <circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
         </Svg>
     }
 }

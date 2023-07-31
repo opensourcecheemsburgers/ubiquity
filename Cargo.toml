@@ -2,7 +2,7 @@
 members = ["src-tauri", "frontend", "ubi-crates/*"]
 
 [workspace.package]
-version = "0.2.0"
+version = "0.4.0"
 authors = ["Stephen Power"]
 description = "A cross-platform markdown editor."
 license = "GPL"
@@ -22,8 +22,10 @@ walkdir = "2.3.2"
 thiserror = "1.0.38"
 dirs = "5.0.0"
 getrandom = { version = "0.2.8", features = ["js"] }
-markdown = "1.0.0-alpha.7"
+markdown = "1.0.0-alpha.10"
 urlencoding = "2.1.2"
 config = { path = "./ubi-crates/config" }
 error = { path = "./ubi-crates/error" }
 md = { path = "./ubi-crates/md" }
+mdtg = { path = "./ubi-crates/mdtg" }
+tauri-sys = { path = "./ubi-crates/tauri-sys", features=["tauri", "clipboard"] }

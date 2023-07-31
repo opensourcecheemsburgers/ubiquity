@@ -1,4 +1,4 @@
-use std::{fmt::{Formatter, Display, self, Debug}, io, string::FromUtf8Error};
+use std::{fmt::{Formatter, Display, self, Debug}, io, string::FromUtf8Error, ops::Range};
 
 use gloo::storage::errors::StorageError;
 use serde::{Serialize, Deserialize};
@@ -33,6 +33,26 @@ impl From<io::Error> for UbiquityError {
         let title = String::from("I/O Error");
         let human_description = io_error.kind().to_string();
         let verbose_description = None;
+        Self { title, human_description, verbose_description }
+    }
+}
+
+impl From<tauri_sys::error::Error> for UbiquityError {
+    fn from(tauri_error: tauri_sys::error::Error) -> Self {
+        let mut tauri_error_object_string = tauri_error.to_string();
+
+        let range = Range { start: 0, end: 27 };
+        tauri_error_object_string.replace_range(range, "");
+        tauri_error_object_string.pop();
+        tauri_error_object_string.pop();
+        
+        // "JS Binding: JsValue(Object({"human_description":"There was no save path selected.","title":"Save Error","verbose_description":null}))"
+
+        let ubi_error: UbiquityError = serde_json::from_str(&tauri_error_object_string).unwrap();
+
+        let title = ubi_error.title;
+        let human_description = ubi_error.human_description;
+        let verbose_description = ubi_error.verbose_description;
         Self { title, human_description, verbose_description }
     }
 }
@@ -81,20 +101,6 @@ impl UbiquityError {
         Self { title, human_description, verbose_description }
     }
 
-    pub fn empty_config_ctx() -> Self {
-        let title = String::from("Context Error");
-        let human_description = String::from("The config context is empty.");
-        let verbose_description = None;
-        Self { title, human_description, verbose_description }
-    }
-
-    pub fn empty_md_ctx() -> Self {
-        let title = String::from("Context Error");
-        let human_description = String::from("The markdown context is empty.");
-        let verbose_description = None;
-        Self { title, human_description, verbose_description }
-    }
-
     pub fn no_save_path_selected() -> Self {
         let title = String::from("Save Error");
         let human_description = String::from("There was no save path selected.");
@@ -106,6 +112,13 @@ impl UbiquityError {
         let title = String::from("Open Error");
         let human_description = String::from("There was no file selected for opening.");
         let verbose_description = None;
+        Self { title, human_description, verbose_description }
+    }
+
+    pub fn mdtg(err: String) -> Self {
+        let title = String::from("Markdown Table Error");
+        let human_description = String::from("There was an error generating your markdown table.");
+        let verbose_description = Some(err);
         Self { title, human_description, verbose_description }
     }
 }

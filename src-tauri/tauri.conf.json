@@ -2,15 +2,20 @@
     "build": {
         "beforeBuildCommand": "cd frontend && npx tailwindcss -i ./css/input.css -o ./css/output.css --minify && trunk build --release index.desktop.html",
         "beforeDevCommand": "cd frontend && trunk serve --release index.desktop.html",
-        "devPath": "http://192.168.32.178:8080",
+        "devPath": "http://127.0.0.1:8080",
         "distDir": "../frontend/dist",
         "withGlobalTauri": true
     },
     "package": {
         "productName": "ubiquity",
-        "version": "0.3.0"
+        "version": "0.4.0"
     },
     "tauri": {
+        "allowlist": {
+            "clipboard": {
+                "writeText": true
+            }
+        },
         "bundle": {
             "active": true,
             "category": "DeveloperTool",
@@ -49,10 +54,10 @@
         },
         "windows": [{
             "fullscreen": false,
-            "height": 600,
+            "height": 1000,
             "resizable": true,
             "title": "ubiquity",
-            "width": 800
+            "width": 1600
         }]
     }
 }

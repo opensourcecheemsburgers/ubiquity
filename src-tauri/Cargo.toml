@@ -4,14 +4,14 @@ license = "GPL"
 repository = ""
 default-run = "Ubiquity"
 edition = "2021"
-version = "0.3.0"
+version = "0.4.0"
 
 [build-dependencies]
 tauri-build = { version = "1.4.0", features = [] }
 
 [dependencies.tauri]
 version = "1.4.0"
-features = []
+features = ["clipboard-write-text"]
 
 [dependencies]
 serde = { workspace = true }
