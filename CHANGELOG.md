@@ -10,7 +10,7 @@ This is a major Ubiquity update with exciting new features and improvements.
 
 - Markdown Table Generator - courtesy of Luka Kerr's [`mdtg`](https://github.com/lukakerr/mdtg).
 
-- PDF Export - You can now export Ubiquity's beautiful HTML previews as markdown. Just click the save icon in the header and choose `Export as PDF` from the dropdown. This will open your browser's print dialog and you can choose to save the file as a `.pdf` or print it
+- PDF Export - You can now export Ubiquity's beautiful HTML previews as a PDF. Just click the save icon in the header and choose `Export as PDF` from the dropdown. This will open your browser's print dialog and you can choose to save the file as a `.pdf` or print it
 
 - Error Toasts - Ubiquity now provides error toasts to you if an error occurs within the app.
 
