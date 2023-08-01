@@ -13,7 +13,7 @@ source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz
 "${pkgname}.desktop::${url}/${pkgname}.desktop"
 )
 sha256sums=(
-	'50578f04cbe387a3027d8d760d4928e1167c2dd757b6789ddeca1dd530a3dfdb'
+	'f9dc9b4c514bc9346409ed4bf3bf8c234fd06f84f29c5e9459a7625fa1d427ff'
 	'80294b66c744e6da117d431a80f6332fde89b7bdc7b33442c6e76e8b76c5b94d'
 )
 

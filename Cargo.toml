@@ -28,4 +28,4 @@ config = { path = "./ubi-crates/config" }
 error = { path = "./ubi-crates/error" }
 md = { path = "./ubi-crates/md" }
 mdtg = { path = "./ubi-crates/mdtg" }
-tauri-sys = { path = "./ubi-crates/tauri-sys", features=["tauri", "clipboard"] }
+tauri-sys = { git = "https://github.com/opensourcecheemsburgers/tauri-sys" , features=["tauri", "clipboard"] }
